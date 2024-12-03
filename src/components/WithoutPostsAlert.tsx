@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import PrimaryButton from './primaryButton'
+import PrimaryButton from '../atoms/primaryButton'
 import StrongText from '@/atoms/StrongText'
 import SpanText from '@/atoms/SpanText'
 

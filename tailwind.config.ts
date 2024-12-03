@@ -1,10 +1,14 @@
 import type { Config } from 'tailwindcss'
 
+const { nextui } = require('@nextui-org/react')
+
 export default {
     content: [
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/atoms/**/*.{js,ts,jsx,tsx}',
+        './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
         extend: {
@@ -19,6 +23,8 @@ export default {
                 secondaryGreen: '#BBF7D0',
             },
         },
+        darkMode: 'class',
+        plugins: [nextui()],
     },
     plugins: [],
 } satisfies Config

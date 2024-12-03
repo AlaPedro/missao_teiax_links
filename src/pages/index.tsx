@@ -1,4 +1,4 @@
-import PrimaryButton from '@/components/primaryButton'
+import PrimaryButton from '@/atoms/primaryButton'
 
 export default function Home() {
     return (

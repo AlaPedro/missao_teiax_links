@@ -14,7 +14,7 @@ export default function PrimaryButton({
     return (
         <button
             className="bg-primaryWhite text-primaryBlack rounded-md
-         py-2 px-4 border-none outline-none"
+         py-2 px-4 border-none outline-none text-sm"
             onClick={() => {
                 router.push(`${redirectRoute}`)
             }}
