@@ -4,11 +4,7 @@ interface Props {
     white?: boolean
 }
 
-export default function InputSelectDomain({
-    placeholder,
-    spanText,
-    white,
-}: Props) {
+export default function InputSelectDomain({ placeholder, spanText }: Props) {
     return (
         <>
             <input
