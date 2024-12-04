@@ -10,8 +10,6 @@ type Handler<T> = (
 
 export const protectedByAuth = <T>(handler: Handler<T>) => {
     return async (context: GetServerSidePropsContext) => {
-        const pathname = context.resolvedUrl
-        const isProfilePage = pathname.includes('/dashboard/profile')
         const supabase = createServerPropsClient(context)
 
         const { data, error } = await supabase.auth.getUser()
@@ -27,12 +25,13 @@ export const protectedByAuth = <T>(handler: Handler<T>) => {
             }
         }
 
-        const { data: profile, error: errorProfile } = await supabase
+        const { data: profile } = await supabase
             .from('profiles')
             .select('*')
             .maybeSingle()
 
         const user = data.user
+
         return handler(context, user, profile)
     }
 }

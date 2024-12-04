@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,13 +10,11 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { createClient } from '../../utils/supabase/component'
 
-type Checked = DropdownMenuCheckboxItemProps['checked']
-
 export default function Header() {
     const supabase = createClient()
     const router = useRouter()
     const supabaseLogOut = async () => {
-        let { error } = await supabase.auth.signOut()
+        const {} = await supabase.auth.signOut()
         router.push('/')
     }
 

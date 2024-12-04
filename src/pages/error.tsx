@@ -1,8 +1,10 @@
+import Link from 'next/link'
+
 export default function ErrorPage() {
     return (
         <div>
             <p>Sorry, something went wrong</p>
-            <a href="/">voltar para página inicial</a>
+            <Link href="/">voltar para página inicial</Link>
         </div>
     )
 }

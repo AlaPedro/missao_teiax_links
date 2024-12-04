@@ -23,7 +23,7 @@ export default function Home() {
     }
 
     const supabaseSignUp = async () => {
-        let { data, error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email: email,
             password: password,
         })
