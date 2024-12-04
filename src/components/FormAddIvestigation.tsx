@@ -28,7 +28,7 @@ export default function FormAddIvestigation() {
                             text="Escolha um domínio"
                             lightText="(107)"
                         />
-                        <InputSelectDomain placeholder="airbnb.oficial.cam" />
+                        <InputSelectDomain />
                     </div>
 
                     <h1 className="mt-4">/</h1>

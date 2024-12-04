@@ -10,12 +10,11 @@ import {
 import Image from 'next/image'
 
 interface Props {
-    placeholder: string
     spanText?: string
     white?: boolean
 }
 
-export default function InputSelectDomain({ placeholder, spanText }: Props) {
+export default function InputSelectDomain({ spanText }: Props) {
     return (
         <>
             <Select defaultValue="airbnb">
