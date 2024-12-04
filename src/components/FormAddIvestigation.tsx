@@ -23,7 +23,7 @@ export default function FormAddIvestigation() {
             </div>
             <div className="grid grid-cols-2 gap-4 items-start">
                 <div className="flex items-center gap-5 justify-center">
-                    <div>
+                    <div className="w-full">
                         <MediumText
                             text="Escolha um domínio"
                             lightText="(107)"
@@ -34,7 +34,7 @@ export default function FormAddIvestigation() {
                     <h1 className="mt-4">/</h1>
                 </div>
 
-                <div>
+                <div className="w-full">
                     <MediumText text="Personalize a URL" />
                     <DefaultTextInput
                         placeholder="sugestao-url"
