@@ -1,6 +1,21 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import WithoutPostsAlert from '@/components/WithoutPostsAlert'
+import { protectedByAuth } from '@/middlewares/auth'
+
+interface DashboardProps {
+    profile: Profile
+}
+
+export const getServerSideProps = protectedByAuth(
+    async (context, user, profile) => {
+        return {
+            props: {
+                profile: profile || {},
+            },
+        } as { props: DashboardProps }
+    }
+)
 
 export default function Dashboard() {
     return (

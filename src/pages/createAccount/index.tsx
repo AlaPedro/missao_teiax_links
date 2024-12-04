@@ -1,6 +1,6 @@
 import StrongText from '@/atoms/StrongText'
 import { useRouter } from 'next/router'
-import { createClient } from '../../utils/supabase/component'
+import { createClient } from '../../../utils/supabase/component'
 import { useState } from 'react'
 import Image from 'next/image'
 import { useToast } from '@/hooks/use-toast'
@@ -11,32 +11,34 @@ export default function Home() {
     const { toast } = useToast()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [passwordRepeat, setPasswordRepeat] = useState('')
 
-    const supabaseLogIn = async () => {
-        let { data, error } = await supabase.auth.signInWithPassword({
+    function showToast() {
+        toast({
+            title: 'Operação realizada',
+            description: 'Seu item foi adicionado com sucesso!',
+            className: 'bg-emerald-500 text-white',
+            duration: 3000,
+        })
+    }
+
+    const supabaseSignUp = async () => {
+        let { data, error } = await supabase.auth.signUp({
             email: email,
             password: password,
         })
         if (error) {
-            return showToastError()
+            return console.log('Criação de conta deu errado', error)
         }
+        showToast()
         console.log('deu certo', data)
-        router.push('/dashboard')
-        return
     }
 
-    function showToastError() {
-        toast({
-            title: 'Ops, algo de errado!',
-            description: 'Verifique seu email e senha antes de fazer login.',
-            variant: 'destructive',
-        })
-    }
     return (
         <div className="bg-black w-screen h-screen text-primaryWhite flex flex-col justify-center items-center gap-2">
-            <div className="w-[400px] h-[350px] border rounded-lg border-grayBlueDark bg-[#020204] p-4 flex flex-col gap-4 justify-center drop-shadow-md">
+            <div className="w-[400px] h-[450px] border rounded-lg border-grayBlueDark bg-[#020204] p-4 flex flex-col gap-4 justify-center drop-shadow-md">
                 <div className="flex items-center">
-                    <StrongText text="Faça seu login" />
+                    <StrongText text="Crie sua conta" />
                     <Image
                         src={'/logo-1.svg'}
                         width={40}
@@ -62,18 +64,27 @@ export default function Home() {
                         type="password"
                     />
                 </div>
+                <div className="flex flex-col gap-2">
+                    <span>Repita sua senha</span>
+                    <input
+                        value={passwordRepeat}
+                        onChange={(e) => setPasswordRepeat(e.target.value)}
+                        className="bg-zinc-950 p-2 border border-grayBlueDark rounded-md h-10 px-2 py-4 w-full"
+                        type="password"
+                    />
+                </div>
                 <div className="w-full flex gap-2">
                     <button
-                        onClick={() => supabaseLogIn()}
+                        onClick={() => supabaseSignUp()}
                         className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold"
                     >
-                        Entrar
+                        Criar conta
                     </button>
                     <button
-                        onClick={() => router.push('/createAccount')}
+                        onClick={() => router.push('/')}
                         className="bg-transparent border border-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-white font-bold"
                     >
-                        Não tenho conta
+                        Já tenho uma conta
                     </button>
                 </div>
             </div>
