@@ -39,22 +39,22 @@ export default function InputSelectDomain({ placeholder, spanText }: Props) {
                             <div className="flex gap-2">
                                 <Image
                                     src={'/whatsapp-icon.svg'}
-                                    width={15}
+                                    width={20}
                                     height={15}
                                     alt="Logo"
                                 />
-                                <span>web.whatsappp.com</span>
+                                <span>whatsappp.c0m</span>
                             </div>
                         </SelectItem>
-                        <SelectItem value="insta">
+                        <SelectItem value="face">
                             <div className="flex gap-2">
                                 <Image
-                                    src={'/instagram-icon.svg'}
-                                    width={15}
-                                    height={15}
+                                    src={'/facebook-logo.svg'}
+                                    width={20}
+                                    height={20}
                                     alt="Logo"
                                 />
-                                <span>instagram.cam</span>
+                                <span>facebook.lat</span>
                             </div>
                         </SelectItem>
                     </SelectGroup>
