@@ -5,7 +5,7 @@ interface SecondaryButton {
     redirectRoute?: string
 }
 
-export default function PrimaryButton({
+export default function SecondaryButton({
     actionText,
     redirectRoute,
 }: SecondaryButton) {
@@ -14,7 +14,7 @@ export default function PrimaryButton({
     return (
         <button
             className="bg-primaryBlue text-primaryWhite rounded-md
-         py-2 px-4 border-none outline-none"
+         py-2 px-4 border border-zinc-800"
             onClick={() => {
                 router.push(`${redirectRoute}`)
             }}

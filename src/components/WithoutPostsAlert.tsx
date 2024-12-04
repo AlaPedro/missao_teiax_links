@@ -2,6 +2,7 @@ import Image from 'next/image'
 import PrimaryButton from '../atoms/primaryButton'
 import StrongText from '@/atoms/StrongText'
 import SpanText from '@/atoms/SpanText'
+import { CirclePlus } from 'lucide-react'
 
 export default function WithoutPostsAlert() {
     return (
@@ -17,6 +18,7 @@ export default function WithoutPostsAlert() {
                 <SpanText text="Criar uma investigação com o HI SPY é simples. Em alguns passos sua investigação estará criada." />
             </div>
             <PrimaryButton
+                icon={CirclePlus}
                 actionText="Nova investigação"
                 redirectRoute="/dashboard/NewInvestigation"
             />
