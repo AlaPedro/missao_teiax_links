@@ -56,7 +56,7 @@ export default function FormAddIvestigation() {
             <div className="w-full flex justify-end">
                 <PrimaryButton
                     actionText="Criar investigação"
-                    redirectRoute="#"
+                    redirectRoute="/dashboard/Success"
                 />
             </div>
         </div>

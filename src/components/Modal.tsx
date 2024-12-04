@@ -42,11 +42,15 @@ export default function Modal() {
                                 https://airbnb.oficial.cam/jfznrtklkxucfe
                             </span>
                         </div>
-                        <PrimaryButton icon={Files} actionText="Copiar link" />
+                        <PrimaryButton
+                            icon={Files}
+                            actionText="Copiar link"
+                            redirectRoute="#"
+                        />
                     </div>
                 </div>
                 <div className="w-full flex justify-end mt-8">
-                    <SecondaryButton actionText="Fechar" />
+                    <SecondaryButton actionText="Fechar" redirectRoute="#" />
                 </div>
             </div>
         </div>
