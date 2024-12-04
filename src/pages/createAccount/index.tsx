@@ -4,8 +4,7 @@ import { createClient } from '../../../utils/supabase/component'
 import { useState } from 'react'
 import Image from 'next/image'
 
-
-export default function Home() {
+export default function CreateAccount() {
     const router = useRouter()
     const supabase = createClient()
     const [email, setEmail] = useState('')
@@ -20,7 +19,7 @@ export default function Home() {
         if (error) {
             return console.log('Criação de conta deu errado', error)
         }
-        console.log('deu certo', data)
+        router.push('/confirmEmail')
     }
 
     return (
