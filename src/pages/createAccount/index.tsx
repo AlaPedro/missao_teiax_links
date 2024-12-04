@@ -3,24 +3,14 @@ import { useRouter } from 'next/router'
 import { createClient } from '../../../utils/supabase/component'
 import { useState } from 'react'
 import Image from 'next/image'
-import { useToast } from '@/hooks/use-toast'
+
 
 export default function Home() {
     const router = useRouter()
     const supabase = createClient()
-    const { toast } = useToast()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordRepeat, setPasswordRepeat] = useState('')
-
-    function showToast() {
-        toast({
-            title: 'Operação realizada',
-            description: 'Seu item foi adicionado com sucesso!',
-            className: 'bg-emerald-500 text-white',
-            duration: 3000,
-        })
-    }
 
     const supabaseSignUp = async () => {
         const { data, error } = await supabase.auth.signUp({
@@ -30,7 +20,6 @@ export default function Home() {
         if (error) {
             return console.log('Criação de conta deu errado', error)
         }
-        showToast()
         console.log('deu certo', data)
     }
 

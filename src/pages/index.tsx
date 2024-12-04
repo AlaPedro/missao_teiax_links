@@ -3,12 +3,10 @@ import { useRouter } from 'next/router'
 import { createClient } from '../../utils/supabase/component'
 import { useState } from 'react'
 import Image from 'next/image'
-import { useToast } from '@/hooks/use-toast'
 
 export default function Home() {
     const router = useRouter()
     const supabase = createClient()
-    const { toast } = useToast()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -18,19 +16,11 @@ export default function Home() {
             password: password,
         })
         if (error) {
-            return showToastError()
+            return alert(error.message)
         }
         console.log('deu certo', data)
         router.push('/dashboard')
         return
-    }
-
-    function showToastError() {
-        toast({
-            title: 'Ops, algo de errado!',
-            description: 'Verifique seu email e senha antes de fazer login.',
-            variant: 'destructive',
-        })
     }
     return (
         <div className="bg-black w-screen h-screen text-primaryWhite flex flex-col justify-center items-center gap-2">
