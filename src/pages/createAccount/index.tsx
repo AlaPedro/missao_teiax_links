@@ -56,6 +56,7 @@ export default function CreateAccount() {
         if (error) {
             return
         }
+        toast.success('Conta criada com sucesso')
         router.push('/')
     }
 
