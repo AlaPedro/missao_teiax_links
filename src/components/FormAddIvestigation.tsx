@@ -20,7 +20,7 @@ export default function FormAddIvestigation() {
     const [redirectUrl, setRedirectUrl] = useState<string>('')
     const investigationIsActive = true
     const investigationClicks = 0
-    const [userId, setUserId] = useState<string>('')
+    const [userId, setUserId] = useState<string | undefined>('')
 
     const router = useRouter()
 
@@ -56,7 +56,7 @@ export default function FormAddIvestigation() {
             const {
                 data: { user },
             } = await supabase.auth.getUser()
-            const userIdFetch: any = user?.id
+            const userIdFetch = user?.id
             setUserId(userIdFetch)
         }
         fetchData()

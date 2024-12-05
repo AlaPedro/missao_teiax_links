@@ -9,7 +9,7 @@ export default function Success() {
     const supabase = createClient()
     const router = useRouter()
     const { id } = router.query
-    const [data, setData] = useState<any>(null)
+    const [data, setData] = useState<any>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {

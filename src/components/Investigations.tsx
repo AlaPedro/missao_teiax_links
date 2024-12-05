@@ -65,7 +65,7 @@ export default function Investigations() {
                         />
                     </div>
                     <div className="flex flex-col gap-4 mt-4 items-center justify-center">
-                        {investigations.map((item: any) => (
+                        {investigations.map((item) => (
                             <Card key={item.id} data={item} />
                         ))}
                     </div>

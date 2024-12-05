@@ -12,7 +12,7 @@ export default function CreateAccount() {
     const [passwordRepeat, setPasswordRepeat] = useState('')
 
     const supabaseSignUp = async () => {
-        const { data, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
             email: email,
             password: password,
         })
