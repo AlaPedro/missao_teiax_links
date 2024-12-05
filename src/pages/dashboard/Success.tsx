@@ -9,6 +9,7 @@ export default function Success() {
     const supabase = createClient()
     const router = useRouter()
     const { id } = router.query
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [data, setData] = useState<any>([])
     const [loading, setLoading] = useState<boolean>(true)
 

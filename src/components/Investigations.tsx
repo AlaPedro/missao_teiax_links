@@ -25,9 +25,9 @@ interface Investigation {
 export default function Investigations() {
     const [investigations, setInvestigations] = useState<Investigation[]>([])
     const supabase = createClient()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 5
-
 
     useEffect(() => {
         const fetchInvestigations = async () => {
