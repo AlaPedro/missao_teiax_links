@@ -39,8 +39,6 @@ export default function Home() {
             setIsLoading(false)
             return toastWarn(error.message)
         }
-        setIsLoading(false)
-        console.log('deu certo', data)
         router.push('/dashboard')
         return
     }

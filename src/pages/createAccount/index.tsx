@@ -56,8 +56,6 @@ export default function CreateAccount() {
         if (error) {
             return
         }
-        setIsLoading(false)
-        console.log('deu certo', data)
         router.push('/')
     }
 
