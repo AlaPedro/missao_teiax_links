@@ -124,10 +124,7 @@ export default function FormAddIvestigation() {
             <div className="grid grid-cols-2 gap-4 items-start">
                 <div className="flex items-center gap-5 justify-center">
                     <div className="w-full">
-                        <MediumText
-                            text="Escolha um domínio"
-                            lightText="(107)"
-                        />
+                        <MediumText text="Escolha um domínio" lightText="(3)" />
                         <InputSelectDomain
                             selectedValue={selectDomain}
                             setSelectedValue={setSelectDomain}
@@ -144,7 +141,6 @@ export default function FormAddIvestigation() {
                         onChange={setUrlPath}
                         placeholder="sugestao-url"
                         spanText="Dica: Simule a URL de um site real."
-                        white={true}
                     />
                 </div>
             </div>

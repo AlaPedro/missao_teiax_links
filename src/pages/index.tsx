@@ -5,19 +5,24 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Loader } from 'lucide-react'
 
 export default function Home() {
     const router = useRouter()
     const supabase = createClient()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     function verifyData() {
+        setIsLoading(true)
         if (email === '') {
             toastWarn('Digite seu email para continuar.')
+            setIsLoading(false)
             return
         }
         if (password === '') {
+            setIsLoading(false)
             toastWarn('Digite sua senha para continuar.')
             return
         } else {
@@ -31,8 +36,10 @@ export default function Home() {
             password: password,
         })
         if (error) {
-            return toast(error.message)
+            setIsLoading(false)
+            return toastWarn(error.message)
         }
+        setIsLoading(false)
         console.log('deu certo', data)
         router.push('/dashboard')
         return
@@ -82,12 +89,18 @@ export default function Home() {
                     />
                 </div>
                 <div className="w-full flex gap-2">
-                    <button
-                        onClick={() => verifyData()}
-                        className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold"
-                    >
-                        Entrar
-                    </button>
+                    {isLoading ? (
+                        <div className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold flex items-center justify-center">
+                            <Loader className="animate-spin" />
+                        </div>
+                    ) : (
+                        <button
+                            onClick={() => verifyData()}
+                            className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold"
+                        >
+                            Entrar
+                        </button>
+                    )}
                     <button
                         onClick={() => router.push('/createAccount')}
                         className="bg-transparent border border-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-white font-bold"

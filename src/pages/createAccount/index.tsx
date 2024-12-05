@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Loader } from 'lucide-react'
 
 export default function CreateAccount() {
     const router = useRouter()
@@ -12,19 +13,23 @@ export default function CreateAccount() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordRepeat, setPasswordRepeat] = useState('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     function verifyData() {
+        setIsLoading(true)
         if (email === '') {
             toastWarn('Digite seu email para continuar.')
+            setIsLoading(false)
             return
         }
         if (password === '') {
             toastWarn('Digite sua senha para continuar.')
+            setIsLoading(false)
             return
         }
-
         if (passwordRepeat === '') {
             toastWarn('Confirme sua senha para continuar.')
+            setIsLoading(false)
             return
         } else {
             supabaseSignUp()
@@ -36,9 +41,22 @@ export default function CreateAccount() {
             email: email,
             password: password,
         })
-        if (error) {
-            return console.log('Criação de conta deu errado', error)
+        if (error?.code === 'user_already_exists') {
+            setIsLoading(false)
+            return toastWarn('Esse email já está sendo utilizado')
         }
+        if (error?.code === 'weak_password') {
+            setIsLoading(false)
+            return toastWarn('Sua senha é muito fraca')
+        }
+        if (error?.code === 'validation_failed') {
+            setIsLoading(false)
+            return toastWarn('Verifique seu email e senha para prosseguir')
+        }
+        if (error) {
+            return
+        }
+        setIsLoading(false)
         console.log('deu certo', data)
         router.push('/')
     }
@@ -96,12 +114,18 @@ export default function CreateAccount() {
                     />
                 </div>
                 <div className="w-full flex gap-2">
-                    <button
-                        onClick={() => verifyData()}
-                        className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold"
-                    >
-                        Criar conta
-                    </button>
+                    {isLoading ? (
+                        <div className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold flex items-center justify-center">
+                            <Loader className="animate-spin" />
+                        </div>
+                    ) : (
+                        <button
+                            onClick={() => verifyData()}
+                            className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold"
+                        >
+                            Criar conta
+                        </button>
+                    )}
                     <button
                         onClick={() => router.push('/')}
                         className="bg-transparent border border-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-white font-bold"
