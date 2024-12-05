@@ -1,5 +1,5 @@
 import { createClient } from '../../utils/supabase/component'
-import { Ellipsis, Ban, Trash } from 'lucide-react'
+import { Ellipsis, Trash } from 'lucide-react'
 import {
     DropdownMenu,
     DropdownMenuContent,
