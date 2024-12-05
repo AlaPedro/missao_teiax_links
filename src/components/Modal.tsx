@@ -4,8 +4,26 @@ import SpanText from '@/atoms/SpanText'
 import StrongText from '@/atoms/StrongText'
 import { Files } from 'lucide-react'
 import Image from 'next/image'
+import { useRef } from 'react'
 
-export default function Modal() {
+interface ModalProps {
+    data: any
+}
+export default function Modal({ data }: ModalProps) {
+    const linkRef = useRef<HTMLSpanElement | null>(null)
+    const copyToClipboard = () => {
+        if (linkRef.current) {
+            navigator.clipboard
+                .writeText(linkRef.current.innerText)
+                .then(() => {
+                    alert('Link copiado com sucesso!')
+                })
+                .catch((err) => {
+                    console.error('Erro ao copiar o link: ', err)
+                    alert('Falha ao copiar o link')
+                })
+        }
+    }
     return (
         <div className="flex flex-col justify-center items-center w-[636px] h-[502px] bg-[#020204] border border-grayBlueDark rounded-[20px]">
             <div className="w-[556px] h-[350px] flex flex-col justify-center items-center">
@@ -38,11 +56,12 @@ export default function Modal() {
                                 height={15}
                                 alt="Logo"
                             />
-                            <span className="text-sm font-normal">
-                                https://airbnb.oficial.cam/jfznrtklkxucfe
+                            <span ref={linkRef} className="text-sm font-normal">
+                                {`${data.investigation_domain}/${data.URL_path}`}
                             </span>
                         </div>
                         <PrimaryButton
+                            onClickAction={copyToClipboard}
                             icon={Files}
                             actionText="Copiar link"
                             redirectRoute="#"
@@ -50,7 +69,10 @@ export default function Modal() {
                     </div>
                 </div>
                 <div className="w-full flex justify-end mt-8">
-                    <SecondaryButton actionText="Fechar" redirectRoute="#" />
+                    <SecondaryButton
+                        actionText="Fechar"
+                        redirectRoute="/dashboard"
+                    />
                 </div>
             </div>
         </div>

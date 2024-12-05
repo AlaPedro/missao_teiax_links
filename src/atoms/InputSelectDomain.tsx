@@ -11,18 +11,32 @@ import Image from 'next/image'
 interface Props {
     spanText?: string
     white?: boolean
+    selectedValue: string
+    setSelectedValue: (value: string) => void
 }
 
-export default function InputSelectDomain({ spanText }: Props) {
+export default function InputSelectDomain({
+    spanText,
+    selectedValue,
+    setSelectedValue,
+}: Props) {
+
+    const handleSelectChange = (value: string) => {
+        setSelectedValue(value) 
+    }
     return (
         <>
-            <Select defaultValue="airbnb">
+            <Select
+                value={selectedValue}
+                onValueChange={handleSelectChange}
+                defaultValue="airbnb.oficial.cam"
+            >
                 <SelectTrigger className="bg-zinc-950 p-2 border border-grayBlueDark rounded-md h-10 px-2 py-4 w-full">
                     <SelectValue placeholder="Selecione um domínio" />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>
-                        <SelectItem value="airbnb">
+                        <SelectItem value="airbnb.oficial.cam">
                             <div className="flex gap-2">
                                 <Image
                                     src={'/airbnb-logo.svg'}
@@ -33,7 +47,7 @@ export default function InputSelectDomain({ spanText }: Props) {
                                 <span>airbnb.oficial.cam</span>
                             </div>
                         </SelectItem>
-                        <SelectItem value="whatsapp">
+                        <SelectItem value="whatsappp.c0m">
                             <div className="flex gap-2">
                                 <Image
                                     src={'/whatsapp-icon.svg'}
@@ -44,7 +58,7 @@ export default function InputSelectDomain({ spanText }: Props) {
                                 <span>whatsappp.c0m</span>
                             </div>
                         </SelectItem>
-                        <SelectItem value="face">
+                        <SelectItem value="facebook.lat">
                             <div className="flex gap-2">
                                 <Image
                                     src={'/facebook-logo.svg'}

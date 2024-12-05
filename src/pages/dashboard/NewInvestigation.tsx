@@ -6,7 +6,7 @@ export default function NewInvestigation() {
     return (
         <div className="bg-primaryBlack w-screen h-screen text-primaryWhite flex flex-col justify-center items-center gap-2">
             <Header />
-            <FormAddIvestigation />
+            <FormAddIvestigation  />
             <Footer />
         </div>
     )

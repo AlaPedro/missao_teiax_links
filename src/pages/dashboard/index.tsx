@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import Investigations from '@/components/Investigations'
 import WithoutPostsAlert from '@/components/WithoutPostsAlert'
 import { protectedByAuth } from '@/middlewares/auth'
 
@@ -21,7 +22,7 @@ export default function Dashboard() {
     return (
         <div className="bg-primaryBlack w-screen h-screen text-primaryWhite flex flex-col justify-center items-center gap-2">
             <Header />
-            <WithoutPostsAlert />
+            <Investigations />
             <Footer />
         </div>
     )
