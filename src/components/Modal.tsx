@@ -6,10 +6,23 @@ import { Files } from 'lucide-react'
 import Image from 'next/image'
 import { useRef } from 'react'
 
-interface ModalProps {
-    data: any
+interface CardProps {
+    data: Investigation
 }
-export default function Modal({ data }: ModalProps) {
+
+interface Investigation {
+    id: string
+    investigation_name: string
+    investigation_domain: string
+    URL_path: string
+    redirect_url: string
+    investigation_objective: string
+    investigation_active: boolean
+    clicks: number
+    created_at: string
+    user_id: string
+}
+export default function Modal({ data }: CardProps) {
     const linkRef = useRef<HTMLSpanElement | null>(null)
     const copyToClipboard = () => {
         if (linkRef.current) {

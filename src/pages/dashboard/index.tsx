@@ -1,7 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Investigations from '@/components/Investigations'
-import WithoutPostsAlert from '@/components/WithoutPostsAlert'
 import { protectedByAuth } from '@/middlewares/auth'
 
 interface DashboardProps {

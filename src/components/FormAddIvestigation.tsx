@@ -18,9 +18,8 @@ export default function FormAddIvestigation() {
         useState<string>('airbnb.oficial.cam')
     const [urlPath, setUrlPath] = useState<string>('')
     const [redirectUrl, setRedirectUrl] = useState<string>('')
-    const [investigationIsActive, setInvestigationIsActive] =
-        useState<boolean>(true)
-    const [investigationClicks, setInvestigationClicks] = useState<number>(0)
+    const investigationIsActive = true
+    const investigationClicks = 0
     const [userId, setUserId] = useState<string>('')
 
     const router = useRouter()

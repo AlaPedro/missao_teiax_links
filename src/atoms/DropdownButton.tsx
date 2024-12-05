@@ -32,7 +32,7 @@ export default function DropdownButton({ data }: CardProps) {
 
     const updateStatus = async () => {
         try {
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from('missao_teiax')
                 .update({ investigation_active: !investigationStatus })
                 .eq('id', idToUpdate)
@@ -48,12 +48,13 @@ export default function DropdownButton({ data }: CardProps) {
 
     const deleteRow = async () => {
         try {
-            const { error } = await supabase
+            const {} = await supabase
                 .from('missao_teiax')
                 .delete()
                 .eq('id', idToUpdate)
         } catch (err) {
             console.log(err)
+            return
         }
     }
 
