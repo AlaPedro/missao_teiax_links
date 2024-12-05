@@ -9,6 +9,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { createClient } from '../../utils/supabase/component'
+import { LogOut } from 'lucide-react'
 
 export default function Header() {
     const supabase = createClient()
@@ -47,10 +48,17 @@ export default function Header() {
                         />
                     </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuContent
+                    align="end"
+                    className="w-56 bg-zinc-950 text-white"
+                >
+                    <DropdownMenuLabel>Minha conta</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => supabaseLogOut()}>
+                    <DropdownMenuItem
+                        className="text-red-600"
+                        onClick={() => supabaseLogOut()}
+                    >
+                        <LogOut />
                         Log out
                     </DropdownMenuItem>
                 </DropdownMenuContent>

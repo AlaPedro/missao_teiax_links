@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import { createClient } from '../../utils/supabase/component'
 import { useState } from 'react'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Home() {
     const router = useRouter()
@@ -10,18 +12,45 @@ export default function Home() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    function verifyData() {
+        if (email === '') {
+            toastWarn('Digite seu email para continuar.')
+            return
+        }
+        if (password === '') {
+            toastWarn('Digite sua senha para continuar.')
+            return
+        } else {
+            supabaseLogIn()
+        }
+    }
+
     const supabaseLogIn = async () => {
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
         })
         if (error) {
-            return alert(error.message)
+            return toast(error.message)
         }
         console.log('deu certo', data)
         router.push('/dashboard')
         return
     }
+
+    const toastWarn = (message: string) => {
+        toast.warn(message, {
+            position: 'bottom-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        })
+    }
+
     return (
         <div className="bg-black w-screen h-screen text-primaryWhite flex flex-col justify-center items-center gap-2">
             <div className="w-[400px] h-[350px] border rounded-lg border-grayBlueDark bg-[#020204] p-4 flex flex-col gap-4 justify-center drop-shadow-md">
@@ -54,7 +83,7 @@ export default function Home() {
                 </div>
                 <div className="w-full flex gap-2">
                     <button
-                        onClick={() => supabaseLogIn()}
+                        onClick={() => verifyData()}
                         className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold"
                     >
                         Entrar

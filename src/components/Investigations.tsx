@@ -25,12 +25,19 @@ interface Investigation {
 export default function Investigations() {
     const [investigations, setInvestigations] = useState<Investigation[]>([])
     const supabase = createClient()
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 5
+
 
     useEffect(() => {
         const fetchInvestigations = async () => {
+            const from = (currentPage - 1) * itemsPerPage
+            const to = from + itemsPerPage - 1
+
             const { data, error } = await supabase
                 .from('missao_teiax')
-                .select('*')
+                .select('*', { count: 'exact' })
+                .range(from, to)
 
             if (error) {
                 console.error('Erro ao buscar dados:', error)
@@ -41,7 +48,7 @@ export default function Investigations() {
         }
 
         fetchInvestigations()
-    }, [])
+    }, [currentPage])
     return (
         <div className="bg-primaryBlack w-screen min-h-full text-primaryWhite flex flex-col items-center gap-2 absolute">
             <Header />
@@ -71,7 +78,9 @@ export default function Investigations() {
                     </div>
                 </div>
             ) : (
-                <WithoutPostsAlert />
+                <div className="relative top-[384px]">
+                    <WithoutPostsAlert />
+                </div>
             )}
 
             <Footer />

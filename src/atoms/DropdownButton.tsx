@@ -41,6 +41,7 @@ export default function DropdownButton({ data }: CardProps) {
                 console.log(error)
                 return
             }
+            window.location.reload()
         } catch (err) {
             console.log(err)
         }
@@ -52,36 +53,43 @@ export default function DropdownButton({ data }: CardProps) {
                 .from('missao_teiax')
                 .delete()
                 .eq('id', idToUpdate)
+
+            window.location.reload()
         } catch (err) {
             console.log(err)
             return
         }
     }
 
+    const handleClick = (e: React.MouseEvent) => {
+        e.stopPropagation()
+    }
+
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <button className="w-10 h-10 bg-[#0F1629] border border-[#1D283A] rounded-lg flex items-center justify-center">
-                    <Ellipsis />
-                </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-zinc-950">
-                <DropdownMenuItem
-                    onClick={updateStatus}
-                    className="text-zinc-50"
-                >
-                    <Ban />
-                    Encerrar
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                    className="text-red-600 font-semibold"
-                    onClick={deleteRow}
-                >
-                    <Trash />
-                    Excluir
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <div onClick={handleClick}>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <button className="w-10 h-10 bg-[#0F1629] border border-[#1D283A] rounded-lg flex items-center justify-center">
+                        <Ellipsis />
+                    </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 bg-zinc-950">
+                    <DropdownMenuItem
+                        onClick={updateStatus}
+                        className="text-zinc-50"
+                    >
+                        {data.investigation_active ? 'encerrar' : 'ativar'}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                        className="text-red-600 font-semibold"
+                        onClick={deleteRow}
+                    >
+                        <Trash />
+                        Excluir
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
     )
 }

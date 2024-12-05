@@ -5,6 +5,9 @@ import StrongText from '@/atoms/StrongText'
 import { Files } from 'lucide-react'
 import Image from 'next/image'
 import { useRef } from 'react'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { createClient } from '../../utils/supabase/component'
 
 interface CardProps {
     data: Investigation
@@ -22,20 +25,53 @@ interface Investigation {
     created_at: string
     user_id: string
 }
+
 export default function Modal({ data }: CardProps) {
+    const supabase = createClient()
     const linkRef = useRef<HTMLSpanElement | null>(null)
     const copyToClipboard = () => {
         if (linkRef.current) {
             navigator.clipboard
                 .writeText(linkRef.current.innerText)
                 .then(() => {
-                    alert('Link copiado com sucesso!')
+                    toastSuccess('Link copiado com sucesso!')
                 })
-                .catch((err) => {
-                    console.error('Erro ao copiar o link: ', err)
-                    alert('Falha ao copiar o link')
-                })
+            updateClicks().catch((err) => {
+                console.error('Erro ao copiar o link: ', err)
+                alert('Falha ao copiar o link')
+            })
         }
+    }
+
+    const idToUpdate = data.id
+
+    const updateClicks = async () => {
+        try {
+            const { error } = await supabase
+                .from('missao_teiax')
+                .update({ clicks: data.clicks + 1 })
+                .eq('id', idToUpdate)
+                .select()
+            if (error) {
+                console.log(error)
+                return
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const toastSuccess = (message: string) => {
+        toast.success(message, {
+            position: 'bottom-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        })
     }
     return (
         <div className="flex flex-col justify-center items-center w-[636px] h-[502px] bg-[#020204] border border-grayBlueDark rounded-[20px]">
@@ -64,9 +100,9 @@ export default function Modal({ data }: CardProps) {
                     <div className="flex w-full justify-between">
                         <div className="h-[36px] w-[374px] bg-zinc-950 border border-zinc-800 rounded-md flex items-center gap-2 py-2 px-3">
                             <Image
-                                src={'/airbnb-logo.svg'}
-                                width={15}
-                                height={15}
+                                src={`/${data.investigation_domain}.svg`}
+                                width={20}
+                                height={20}
                                 alt="Logo"
                             />
                             <span ref={linkRef} className="text-sm font-normal">

@@ -7,6 +7,8 @@ import StrongText from '@/atoms/StrongText'
 import { createClient } from '../../utils/supabase/component'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function FormAddIvestigation() {
     const supabase = createClient()
@@ -23,6 +25,27 @@ export default function FormAddIvestigation() {
     const [userId, setUserId] = useState<string | undefined>('')
 
     const router = useRouter()
+
+    function verifyData() {
+        if (investigationName === '') {
+            toastWarn('Defina o nome de sua investigação!')
+            return
+        }
+        if (investigationName.length > 30) {
+            toastWarn('O nome da sua investigação está muito grande!')
+            return
+        }
+        if (urlPath === '') {
+            toastWarn('Defina a personalização da URL!')
+            return
+        }
+        if (redirectUrl === '') {
+            toastWarn('Defina a URL de redirecionamento!')
+            return
+        } else {
+            handleCreateInvestigation()
+        }
+    }
 
     async function handleCreateInvestigation() {
         try {
@@ -51,6 +74,19 @@ export default function FormAddIvestigation() {
         }
     }
 
+    const toastWarn = (message: string) => {
+        toast.warn(message, {
+            position: 'bottom-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        })
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             const {
@@ -67,10 +103,7 @@ export default function FormAddIvestigation() {
             <StrongText text="Nova Investigação" />
 
             <div className="flex flex-col gap-[6px]">
-                <MediumText
-                    text="Como quer chamar a sua investigação?"
-                    lightText="(opicional)"
-                />
+                <MediumText text="Como quer chamar a sua investigação?" />
                 <DefaultTextInput
                     value={investigationName}
                     onChange={setInvestigationName}
@@ -78,7 +111,10 @@ export default function FormAddIvestigation() {
                 />
             </div>
             <div>
-                <MediumText text="Qual o objetivo dessa investigação?" />
+                <MediumText
+                    text="Qual o objetivo dessa investigação?"
+                    lightText="(opicional)"
+                />
                 <DefaultTextArea
                     value={investigationObjective}
                     onChange={setInvestigationObjective}
@@ -123,7 +159,7 @@ export default function FormAddIvestigation() {
             </div>
             <div className="w-full flex justify-end">
                 <PrimaryButton
-                    onClickAction={handleCreateInvestigation}
+                    onClickAction={verifyData}
                     actionText="Criar investigação"
                 />
             </div>

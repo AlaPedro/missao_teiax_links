@@ -20,9 +20,8 @@ export default function InputSelectDomain({
     selectedValue,
     setSelectedValue,
 }: Props) {
-
     const handleSelectChange = (value: string) => {
-        setSelectedValue(value) 
+        setSelectedValue(value)
     }
     return (
         <>
@@ -39,7 +38,7 @@ export default function InputSelectDomain({
                         <SelectItem value="airbnb.oficial.cam">
                             <div className="flex gap-2">
                                 <Image
-                                    src={'/airbnb-logo.svg'}
+                                    src={'/airbnb.oficial.cam.svg'}
                                     width={15}
                                     height={15}
                                     alt="Logo"
@@ -50,7 +49,7 @@ export default function InputSelectDomain({
                         <SelectItem value="whatsappp.c0m">
                             <div className="flex gap-2">
                                 <Image
-                                    src={'/whatsapp-icon.svg'}
+                                    src={'/whatsappp.c0m.svg'}
                                     width={20}
                                     height={15}
                                     alt="Logo"
@@ -61,7 +60,7 @@ export default function InputSelectDomain({
                         <SelectItem value="facebook.lat">
                             <div className="flex gap-2">
                                 <Image
-                                    src={'/facebook-logo.svg'}
+                                    src={'/facebook.lat.svg'}
                                     width={20}
                                     height={20}
                                     alt="Logo"

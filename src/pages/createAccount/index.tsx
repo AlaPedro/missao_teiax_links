@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import { createClient } from '../../../utils/supabase/component'
 import { useState } from 'react'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function CreateAccount() {
     const router = useRouter()
@@ -11,15 +13,47 @@ export default function CreateAccount() {
     const [password, setPassword] = useState('')
     const [passwordRepeat, setPasswordRepeat] = useState('')
 
+    function verifyData() {
+        if (email === '') {
+            toastWarn('Digite seu email para continuar.')
+            return
+        }
+        if (password === '') {
+            toastWarn('Digite sua senha para continuar.')
+            return
+        }
+
+        if (passwordRepeat === '') {
+            toastWarn('Confirme sua senha para continuar.')
+            return
+        } else {
+            supabaseSignUp()
+        }
+    }
+
     const supabaseSignUp = async () => {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email: email,
             password: password,
         })
         if (error) {
             return console.log('Criação de conta deu errado', error)
         }
-        router.push('/confirmEmail')
+        console.log('deu certo', data)
+        router.push('/')
+    }
+
+    const toastWarn = (message: string) => {
+        toast.warn(message, {
+            position: 'bottom-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+        })
     }
 
     return (
@@ -63,7 +97,7 @@ export default function CreateAccount() {
                 </div>
                 <div className="w-full flex gap-2">
                     <button
-                        onClick={() => supabaseSignUp()}
+                        onClick={() => verifyData()}
                         className="bg-white w-1/2 h-10 rounded-md shadow-md drop-shadow-md text-black font-bold"
                     >
                         Criar conta
